@@ -1,0 +1,44 @@
+<main class="mt-3">
+    <div class="container grid-container mt-xxl-5">
+      <div class="row justify-content-center">
+        <div class="col-md-6">
+          <img [src]="productDetails.images[0]" alt="" class="img-fluid">
+        </div>
+  
+        <div class="col-md-6">
+          <!-- Right Column Content -->
+          <h2>{{productDetails.title}}</h2>
+          <p>{{productDetails.description}}</p>
+          <hr>
+          
+          <h5 class="card-text">Before Discount:{{productDetails.price | currency:'EGP':'symbol':'1.2-2'}} or {{calculateInstallmentPrice()}}/Month </h5>
+          <p>Suggested payments with 6 months special financing</p>
+          <h5>After Discount:{{productDetails.price | discount: productDetails.discountPercentage| currency:'EGP':'symbol':'1.2-2'}}</h5>
+          <h5>Discount:{{productDetails.discountPercentage}}%</h5>
+          <hr>
+          
+          <span class="badge rounded-pill" [ngStyle]="{'background-color': productDetails.stock > 0 ? 'green' : 'red' }">
+            {{ productDetails.stock > 0 ? 'In Stock' : 'Out of Stock' }}
+          </span>
+          <p class="mt-3">More Informations</p>
+          <a  class="btn-1 btn">Category</a>
+          <a class="btn-1 btn">Brand</a> 
+          <hr>
+          <p>Only <span style="color:red;">{{productDetails.stock}}</span> Don't Miss It</p>
+          <a href="#" class="btn " >Buy Now</a>
+          <a href="#" class="btn">Add to cart</a>
+        </div>
+  
+        <div class="col-md-6 mt-3">
+          <div class="row">
+            <div class="col-md-3" *ngFor="let index of [1, 2, 3, 4]">
+              <div class="card mb-2">
+                <img [src]="productDetails.images[index]" alt="" class="card-img-top img-fluid">
+              </div>
+            </div>
+          </div>
+        </div> 
+      </div>
+    </div>
+  </main>
+  

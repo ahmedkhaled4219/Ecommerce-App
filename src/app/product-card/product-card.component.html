@@ -1,0 +1,19 @@
+<div class="card mb-5" style="width: 18rem;">
+    <img [src]="myproduct.images[0]" class="card-img-top" alt="...">
+    <div class="card-body">
+        <div class="d-flex justify-content-between align-items-center">
+            
+            <h5 class="card-title" (click)="redirctToDetails(myproduct.id)">{{myproduct.title}}</h5>
+            
+            <p class="card-text">{{myproduct.price | currency:'EGP':'symbol':'1.2-2'}}</p>
+        </div>
+        <hr>
+        <p  class="card-text des">{{myproduct.description}}</p>
+        <div class="d-flex justify-content-between align-items-center">
+            <a href="#" class="btn">Add to Cart</a>
+            <span class="badge rounded-pill" [ngStyle]="{'background-color': myproduct.stock > 0 ? 'green' : 'red' }">
+                {{ myproduct.stock > 0 ? 'In Stock' : 'Out of Stock' }}
+            </span>
+        </div>
+    </div>
+</div>
