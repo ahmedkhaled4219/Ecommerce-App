@@ -1,6 +1,7 @@
 
 <div class="container d-flex justify-content-center align-items-center vh-100 flex-column">      
-    
+  <h2 >Make  Your Account</h2>
+  <p>Unlock the door to a world of endless shopping possibilities. Your favorite items are just a login away!</p>    
 
     <form [formGroup]="registerForm" (ngSubmit)="handleFormSubmit()"  class="border border-2 p-5 rounded-3">
       <div class="mb-3">
@@ -43,29 +44,29 @@
         <input type="password" aria-describedby="passwordHelp" class="form-control" id="exampleInputPassword1" formControlName="password">
         <div id="password" class="form-text text-danger">  
             @if (registerForm.controls['password'].invalid && registerForm.controls['password'].touched) {
-                @if (registerForm.controls['password'].errors?.['required']) {
+                @if (registerForm.controls['password'].errors?.['required'] && !registerForm.get('password')?.value)  {
                     <small>This field is required</small>
                 }
-                @if (registerForm.controls['password'].errors?.['pattern']) {
-                    <small>The username shouldn't contain space</small>
-                }
+                @if (registerForm.controls['password'].hasError('passwordRequirements') && registerForm.get('password')?.value) {
+                    <small>Password must have at least 8 characters, one lowercase letter, one uppercase letter, one digit, and one special character [*%$#]</small>
+                  }
               }
             </div>
-      
-        <!-- <div id="emailHelp" class="form-text text-danger">
-        @if (email.invalid && email.touched) {
-            @if(email.errors?.['required']){
-                <small>This field is required</small>
-            }
-            @if (email.errors?.['pattern']) {
-                <small>Email should match:example&#64;domain.com</small>
-                <br>
-                @if (email.value && email.value.split('@')[0].length < 5) {
-                    <small>At least 5 characters before&#64;</small>
+
+            <label for="confirm" class="form-label">Confirm Password</label>
+            <input type="password" aria-describedby="passwordHelp" class="form-control" id="confirm" formControlName="confirm">
+            <div id="confirm" class="form-text text-danger">
+                @if (registerForm.controls['confirm'].invalid && registerForm.controls['confirm'].touched) {
+                  @if (registerForm.controls['confirm'].errors?.['required']) {
+                    <small>This field is required</small>
                   }
-            }
-        }
-        </div> -->
+                  @if (registerForm.controls['confirm'].errors?.['passwordMismatch']) {
+                    <small>Passwords do not match</small>
+                  }
+                }
+              </div>
+      
+        
       
     </div>
       
