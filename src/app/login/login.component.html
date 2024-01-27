@@ -1,20 +1,56 @@
-<div class="container d-flex justify-content-center align-items-center vh-100">
-    <form class="border border-2 p-5 rounded-3">
+
+<div class="container d-flex justify-content-center align-items-center vh-100 flex-column">      
+    
+    <h2 >Login to Your Account</h2>
+    <p>Unlock the door to a world of endless shopping possibilities. Your favorite items are just a login away!</p>
+
+    <form #loginForm="ngForm" (ngSubmit)="handleFormSubmit(loginForm)" class="border border-2 p-5 rounded-3">
       <div class="mb-3">
         <label for="exampleInputEmail1" class="form-label">Email address</label>
-        <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
-        <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div>
-      </div>
+        <input 
+        type="email" 
+        class="form-control" 
+        id="exampleInputEmail1" 
+        aria-describedby="emailHelp" 
+        name="email" 
+        ngModel
+        required
+        pattern="^[a-zA-Z0-9._-]{5,}@(gmail\.com|yahoo\.com)$"
+        #email="ngModel"
+        >
+        <div id="emailHelp" class="form-text text-danger">
+        @if (email.invalid && email.touched) {
+            @if(email.errors?.['required']){
+                <small>This field is required</small>
+            }
+            @if (email.errors?.['pattern']) {
+                <small>Email should match:example&#64;domain.com</small>
+                <br>
+                @if (email.value && email.value.split('@')[0].length < 5) {
+                    <small>At least 5 characters before&#64;</small>
+                  }
+            }
+        }
+        </div>
+      
+    </div>
       <div class="mb-3">
         <label for="exampleInputPassword1" class="form-label">Password</label>
-        <input type="password" class="form-control" id="exampleInputPassword1">
-      </div>
+        <input type="password" aria-describedby="passwordHelp" class="form-control" id="exampleInputPassword1" name="password" ngModel required #password="ngModel" >
+        <div id="passwordHelp" class="form-text text-danger">
+             @if (password.invalid && password.touched) {
+                @if(password.errors?.['required']){
+                    <small>This field is required</small>
+                }
+             }
+        </div>  
+    </div>
     
       <div class="d-flex justify-content-center mb-3"> 
-        <button type="submit" class="btn btn-primary">Login</button>
+        <button type="submit" class="btn ">Login</button>
       </div>
-      <div>
-        <p>Don't Have Account? <a routerLink="register-page">Register</a></p>
+      <div class="d-flex justify-content-center mb-3">
+        <p>Don't Have Account? <a  routerLink="/register-page">Register</a></p>
       </div>
     </form>
 </div>
