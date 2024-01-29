@@ -3,6 +3,7 @@ import { ActivatedRoute } from '@angular/router';
 import { Products } from '../interface/products';
 import { CurrencyPipe, NgFor, NgStyle } from '@angular/common';
 import { DiscountPipe } from '../pipes/discount.pipe';
+import { ProductsRequestsService } from '../services/products-requests.service';
 
 @Component({
   selector: 'app-product-details',
@@ -12,7 +13,7 @@ import { DiscountPipe } from '../pipes/discount.pipe';
   styleUrl: './product-details.component.css'
 })
 export class ProductDetailsComponent {
-  products:Products[]=
+  products:any[]=
   [
     {
       "id": 1,
@@ -598,12 +599,13 @@ export class ProductDetailsComponent {
 
   productDetails : any;
 
-constructor(private activeroute:ActivatedRoute){}
+constructor(private activeroute:ActivatedRoute,private productDetailsRequest:ProductsRequestsService){}
 
 ngOnInit(){
 const id=+this.activeroute.snapshot.params['id']
-console.log(id)
+//console.log(id)
  this.productDetails=this.products.find((product:any)=>product.id===id)
+ this.productDetailsRequest.getProductDetails(id).subscribe((res)=>console.log(res))
 }
 
 calculateInstallmentPrice(): string {

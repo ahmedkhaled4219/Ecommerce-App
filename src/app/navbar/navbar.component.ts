@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { RouterLink, RouterLinkActive } from '@angular/router';
+import { CounterServiceService } from '../services/counter-service.service';
 
 @Component({
   selector: 'app-navbar',
@@ -9,5 +10,8 @@ import { RouterLink, RouterLinkActive } from '@angular/router';
   styleUrl: './navbar.component.css'
 })
 export class NavbarComponent {
-
+  counter=0
+constructor(private counterService:CounterServiceService){
+  this.counterService.getCounter().subscribe((res)=>this.counter=res)
+}
 }

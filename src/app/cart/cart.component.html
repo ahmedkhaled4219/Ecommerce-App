@@ -1,1 +1,70 @@
-<p>cart works!</p>
+<h2>Your Cart</h2>
+<hr />
+
+<div class="container">
+  <div class="row">
+    <div class="col-md-3">
+      <h5>Description</h5>
+      <hr>
+    </div>
+    <div class="col-md-3">
+      <h5>Quantity</h5>
+      <hr>
+    </div>
+    <div class="col-md-3">
+      <h5>Remove</h5>
+      <hr>
+    </div>
+    <div class="col-md-3">
+      <h5>Price</h5>
+      <hr>
+    </div>
+  </div>
+  
+  <div class="d-flex align-items-center justify-content-center">
+    <app-empty-cart *ngIf="counter == 0"></app-empty-cart>
+
+  </div>
+
+
+
+  <div class="row" *ngFor="let item of mycart; let i = index">
+    <hr>
+    <div class="col-md-3">
+      <!-- Content for Column 1 -->
+      <img [src]="item.images[0]" class="card-img-top" alt="Image {{ i + 1 }}">
+      <h6>{{item.title}}</h6>
+      <p>{{item.category}}</p>
+    </div>
+
+    <div class="col-md-3">
+      <!-- Content for Column 2 -->
+      <div class="d-flex">
+        <div *ngIf="item.quantity >= item.stock" class="text-danger" >
+          <small>You have reached the maximum quantity for this product.</small>
+        </div>
+        <button class="btn btn-danger" (click)="decreaseCounter(item)">-1</button>
+        <p class="mx-4 mb-0 fw-bold">{{item.quantity}}</p>
+        <button class="btn btn-success" (click)="increaseCounter(item)">+1</button>
+      </div>
+    </div>
+
+    <div class="col-md-3">
+      <!-- Content for Column 3 -->
+      <button class="btn btn-danger" (click)="removeFromCart(item)">Remove Item</button>
+    </div>
+
+    <div class="col-md-3">
+      <!-- Content for Column 4 -->
+      <p>{{ item.price*item.quantity| currency:'EGP':'symbol':'1.2-2' }}</p>
+    </div>
+  
+  </div>
+  <div class="card mt-3 position-fixed bottom-50 end-0" style="width: 12rem;">
+    <div class="card-body">
+      <h5 class="card-title">Total Price</h5>
+      <p class="card-text">{{ totalprice | currency:'EGP':'symbol':'1.2-2' }}</p>
+    </div>
+  </div>
+  
+</div>

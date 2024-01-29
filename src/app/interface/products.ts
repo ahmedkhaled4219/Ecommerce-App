@@ -10,5 +10,6 @@ export interface Products {
     "category": string,
     "thumbnail": string,
     "images": Array<string>,
-    "createdAt": string
+    "createdAt": string,
+    "quantity": number;
 }
